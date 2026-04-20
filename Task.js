@@ -1,27 +1,66 @@
-let numbers=[1,3,4,5,8,9,6,5]
+// Hoisted
 
-numbers.forEach(num => {
-    console.log(num);
-});
-numbers.length
+console.log(b);
+var b = 10;
 
-console.log(numbers.length);
+console.log(a);
+let a = 10;
 
-numbers.push(10)
-console.log(numbers);
+function Add() {
+    let a = 10;
+    console.log(a);
+}
 
-numbers.pop()
-console.log(numbers);
+sub(110);
 
-numbers.unshift(20)
-console.log(numbers);
+function sub(a) {
+    console.log(a);
+}
 
-numbers.shift()
-console.log(numbers);
+let fun
+Add();
+sub();
 
-console.log(numbers.includes(2));
 
-console.log(numbers.indexOf(3));
+const mathOperations = (a,b) => {
+    console.log(a-b);
+    console.log(a+b);
+    console.log(a*b);
+}
 
-let numbers1 =numbers.join("")
-console.log(numbers1);
+mathOperations(3,5);
+
+
+// Object
+// const student = {
+//     name:"Naveen",
+//     Age:23,
+//     school:"ZSGS"
+//  }
+// //  console.log(student);
+// //  console.log(student["id"]);
+// //  console.log("name"in student);
+// // student.city = "kovai";
+// // console.log(student);
+// // delete student.Age;
+// // console.log(student);
+// // console.log(typeof student);
+// // console.log(Object.keys(student));
+// console.log(Object.values(student));
+
+
+// const pers = {
+//             name: "Naveen",
+//             greet: function () {
+//                 console.log("Hello Dude");
+//             }
+//         };
+//         pers.greet();
+
+// const person = {
+//             name: "Rahul",
+//             greet() {
+//                 console.log("Hello " + student.name);
+//             }
+//         };
+//         person.greet();
