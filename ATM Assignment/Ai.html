@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ATM System</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #1e1e1e;
+      color: white;
+      text-align: center;
+    }
+
+    .atm {
+      margin: 60px auto;
+      padding: 20px;
+      width: 320px;
+      background: #2c2c2c;
+      border-radius: 10px;
+      box-shadow: 0 0 10px black;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    input, button {
+      margin: 8px;
+      padding: 10px;
+      width: 85%;
+      border-radius: 5px;
+      border: none;
+    }
+
+    input {
+      background: #444;
+      color: white;
+    }
+
+    button {
+      background: teal;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: darkcyan;
+    }
+
+    #output {
+      margin-top: 15px;
+      min-height: 25px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="atm">
+  <h2>ATM Machine</h2>
+  <p id="bankInfo"></p>
+
+  <input type="text" id="card" placeholder="Enter Card Number">
+  <input type="password" id="pin" placeholder="Enter PIN">
+  <input type="number" id="amount" placeholder="Enter Amount">
+
+  <button onclick="atm.deposit()">Deposit</button>
+  <button onclick="atm.withdraw()">Withdraw</button>
+  <button onclick="atm.checkBalance()">Check Balance</button>
+
+  <div id="output"></div>
+</div>
+
+<script>
+  // 🔹 Parent Class
+  class BankAccount {
+    constructor(accountHolder, balance, pin, cardNumber) {
+      this.accountHolder = accountHolder;
+      this.balance = balance;
+      this.pin = pin;
+      this.cardNumber = cardNumber;
+    }
+
+    deposit(amount) {
+      this.balance += amount;
+      return `Deposited ₹${amount}`;
+    }
+
+    checkBalance() {
+      return `Balance: ₹${this.balance}`;
+    }
+
+    // Static method
+    static bankInfo() {
+      return "🏦 Welcome to Secure ATM Bank";
+    }
+  }
+
+  // 🔹 Child Class
+  class ATM extends BankAccount {
+    constructor(accountHolder, balance, pin, cardNumber) {
+      super(accountHolder, balance, pin, cardNumber);
+    }
+
+    // Authentication method
+    authenticate() {
+      let enteredCard = document.getElementById("card").value;
+      let enteredPin = document.getElementById("pin").value;
+
+      if (enteredCard !== this.cardNumber) {
+        return "❌ Invalid Card Number";
+      }
+
+      if (enteredPin !== this.pin) {
+        return "❌ Incorrect PIN";
+      }
+
+      return "✅ Authenticated";
+    }
+
+    // Method overriding (Withdraw)
+    withdraw() {
+      let auth = this.authenticate();
+
+      if (auth !== "✅ Authenticated") {
+        display(auth);
+        return;
+      }
+
+      let amount = parseInt(document.getElementById("amount").value);
+
+      if (!amount || amount <= 0) {
+        display("⚠️ Enter valid amount");
+        return;
+      }
+
+      if (amount > this.balance) {
+        display("❌ Insufficient Balance");
+        return;
+      }
+
+      this.balance -= amount;
+      display(`✅ Withdrawn ₹${amount}`);
+    }
+
+    // Using super()
+    deposit() {
+      let amount = parseInt(document.getElementById("amount").value);
+
+      if (!amount || amount <= 0) {
+        display("⚠️ Enter valid amount");
+        return;
+      }
+
+      let msg = super.deposit(amount);
+      display(msg);
+    }
+
+    checkBalance() {
+      display(super.checkBalance());
+    }
+  }
+
+  // 🔹 Object Creation
+  const atm = new ATM("Sai", 5000, "1234", "987654321012");
+
+  // 🔹 Static usage
+  document.getElementById("bankInfo").innerText = BankAccount.bankInfo();
+
+  // 🔹 Output display
+  function display(message) {
+    document.getElementById("output").innerText = message;
+  }
+</script>
+
+</body>
+</html>

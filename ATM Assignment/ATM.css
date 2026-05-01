@@ -1,0 +1,28 @@
+body{
+    background-color: black;
+    display: flex;
+    justify-self: center;
+    margin-top: 100px;
+}
+.atm{
+    background-color: rgb(53, 51, 51);
+    color: white;
+    width: 500px;
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+}
+.atm_input{
+    margin: 20px;
+    padding: 15px;
+    border-radius: 10px;
+}
+.atm_button{
+    padding: 15px;
+    margin: 10px 40px 10px 40px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.atm_output{
+    text-align: center;
+}
